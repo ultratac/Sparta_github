@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- test -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+
+    <!-- Optional JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            margin-top: 20px;
+
+        }
+
+
+        .wrap {
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-bottom: 30px;
+            padding-right: 0px;
+            width: 500px;
+            margin: auto;
+            background-color: white;
+            border-style: solid;
+            border-color: aliceblue;
+            border-width: 0.1px;
+            border-radius: 10px;
+
+        }
+
+        .product_name {
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .product_detail {
+            margin-bottom: 30px;
+            margin-top: 0px;
+
+        }
+
+        .product_price {
+            font-size: 1em;
+            font-weight: 400;
+            color: saddlebrown;
+        }
+
+        #product_summary {
+            width: 500px;
+            margin: 0px 0px;
+            padding-right: 30px;
+            padding-left: 30px;
+            padding-top: 30px;
+            padding-bottom: 0px;
+            font-weight: bold;
+            font-weight: bolder;
+
+        }
+
+        .order_detail {
+            padding-bottom: 2px;
+            padding-left: 1px;
+        }
+
+        #post-box.form-post {
+            margin-top: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .form-group {
+            padding-bottom: 0px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+
+        }
+
+        .custom-select {
+            color: slategray;
+            margin-top: 10px;
+            padding-top: 0px;
+        }
+
+        .button {
+            margin-top: 30px;
+            padding-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .btn-primary {
+            color: #f9f9f9;
+            background-color: rgb(168, 4, 4);
+            font-weight: bold;
+            border-width: 0px;
+            border-radius: 3px;
+
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let rate = response[1]["rate"];
+                    // console.log(rate);
+                    $('#currency').text(rate)
+
+                },
+        });
+    })
+  
+        function hay() {
+            let target_value = $('#input_name').val();
+            let target_value2 = $('#input_address').val();
+            let target_value3 = $('#input_phone').val();
+            let target_value4 = $('#select-area').val();
+
+            if (target_value == '') {
+                alert('주문자명을 입력하세요');
+                return;
+            }
+
+            else if(target_value4 ==''){
+                alert('수량을 선택해주세요.');
+            }
+            else if(target_value2 == ''){
+                alert('주소를 입력하세요');
+            }
+            else if(target_value3 == '') {
+                alert('휴대폰 번호를 입력하세요');
+            }
+            else {
+                alert('주문이 완료되었습니다')
+            }
+        }
+
+    </script>
+
+
+    <title>스파르타코딩클럽 W1 | 원페이지쇼핑몰 만들기 by tac </title>
+</head>
+
+<body>
+    <div class="wrap">
+
+        <!-- 이미지 영역 -->
+        <div class="image_area">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100"
+                            src="https://s3.ap-northeast-2.amazonaws.com/meesig/v3/prod/image/item/main/797/4e0e0359c3a24a598662d82b5658906220200204120643."
+                            alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100"
+                            src="https://s3.ap-northeast-2.amazonaws.com/meesig/v3/prod/image/item/main/797/fb31971bb95b43599a1bcbb01d08421320200204120643."
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100"
+                            src="https://s3.ap-northeast-2.amazonaws.com/meesig/v3/prod/image/item/main/797/fb31971bb95b43599a1bcbb01d08421320200204120643."
+                            alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 상품 소개 영역  -->
+        <div class="prodcut_summary" id="product_summary">
+            <h4 class="product_name"><strong>셰프가 만든 생양갱 선물세트 </strong></h4>
+            <h6 class="product_price">지금 주문 시 개당 1,500원</h6>
+            <p class="product_detail">여기에 상품 설명이 들어갑니다. 여기에 상품설명이 들어갑니다. 여기에 상품 설명이 들어갑니다. 여기에 상품 설명이 들어갑니다. 여기에 상품설명이
+                들어갑니다. </p>
+
+            <p id="currency"> </p>
+
+            <hr>
+        </div>
+
+        <!-- /인풋 영역 -->
+        <div class="form-post" id="post-box">
+            <h5 class="order_detail"><strong>주문하기</strong></h5>
+
+            <!-- 인풋영역 -->
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="input_name" placeholder="주문자 이름">
+                </div>
+                <div>
+                    <select class="custom-select my-1 mr-sm-2" id="select-area">
+                        <option selected>수량 선택하기</option>
+                        <option value="1">1개</option>
+                        <option value="2">2개</option>
+                        <option value="3">3개 이상</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="input_address" placeholder="받으실 주소">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="input_phone" placeholder="받는분 전화번호 ">
+                </div>
+
+            </form>
+        </div>
+        <!-- 버튼영역 -->
+        <!-- Button trigger modal -->
+        <div class="button">
+            <button onclick="hay()" type="button" class="btn btn-primary btn-lg btn-block">
+                지금 구매하기 </button>
+
+            <!-- Modal -->
+        </div>
+
+    </div>
+
+</body>
+
+</html>
