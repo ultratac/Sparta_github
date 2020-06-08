@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function get(){
+            alert("get요청")
+            $.ajax({
+            type: "GET",
+            url: "/test?title_give=봄날은간다",
+            data: {},
+            success: function(response){
+                console.log(response)
+    }
+  })
+    }
+        function post(){
+            alert("post요청")
+            $.ajax({
+                type: "POST",
+                url: "/test",
+                data: { title_give:'봄날은간다' },
+                success: function(response){
+                    console.log(response)
+                }
+  })
+
+}
+    </script>
+</head>
+<body>
+    <h1>Hello Flask</h1>
+    <button onclick="get()">get</button>
+    <button onclick="post()">post</button>
+</body>
+</html>
