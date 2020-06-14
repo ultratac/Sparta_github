@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프론트-백엔드 연결 마지막 예제!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .make-center {
+            text-align: center;
+        }
+
+        .star-list {
+            width: 500px;
+            margin: 20px auto 0 auto;
+        }
+
+        .star-name {
+            display: inline-block;
+        }
+
+        .star-name:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            margin-bottom: 15px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            // index.html 로드가 완료되면 자동으로 show_star() 함수를 호출합니다.
+            show_star();
+        });
+
+        function show_star() {
+
+            $('#star-box').empty()
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/list',
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let moviestars = response['star_list']
+                        for (let i = 0; i < moviestars.length; i++) {
+                            make_card(moviestars[i]['name'], moviestars[i]['img_url'], moviestars[i]['url'], moviestars[i]['recent'], moviestars[i]['like']);
+                        }
+                    }
+                }
+            })
+        }
+
+
+        function make_card(name, img_url, url, recent, like) {
+            let temp_html = `<div class="card">
+                                        <div class="card-content">
+                                        <div class="media">
+                                            <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <img src=${img_url} alt="Placeholder image">
+                                            </figure>
+                                            </div>
+                                            <div class="media-content">
+                                            <a href=${url} target="_blank" class="star-name title is-4">${name}(좋아요:${like})</a>
+                                            <p class="subtitle is-6">${recent}</p>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <footer class="card-footer">
+                                        <a href="#" onclick="like_star('${name}')" class="card-footer-item has-text-info">
+                                            위로!
+                                            <span class="icon">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            </span>
+                                        </a>
+                                        <a href="#" onclick="delete_star('${name}')" class="card-footer-item has-text-danger">
+                                            삭제
+                                            <span class="icon">
+                                            <i class="fas fa-ban"></i>
+                                            </span>
+                                        </a>
+                                        </footer>
+                                    </div>`;
+
+            $('#star-box').append(temp_html);
+        }
+
+
+        function like_star(name) {
+            $.ajax({
+                type: "POST",
+                url: "/api/like",
+                data: { 'name_send': name },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('좋아요 완료')
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+        // console.log(like_star)
+
+        function delete_star(name) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/delete',
+                data: {'name_send':name},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('카드가 삭제되었습니다.');
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container make-center">
+                <h1 class="title">
+                    내가 좋아하는 영화인 리스트 
+                </h1>
+                <h2 class="subtitle">
+                    순위를 매겨봅시다!! 
+                </h2>
+            </div>
+        </div>
+    </section>
+    <div class="star-list" id="star-box">
+        <div class="card">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-48x48">
+                            <img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fssl.pstatic.net%2Fsstatic%2Fpeople%2Fportrait%2F201807%2F20180731143610623-6213324.jpg&type=u120_150&quality=95"
+                                alt="Placeholder image" />
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <a href="#" target="_blank" class="star-name title is-4">조이서 (좋아요: )</a>
+                        <p class="subtitle is-6">이태원 클라쓰</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a href="#" onclick="like_star('김다미')" class="card-footer-item has-text-info">
+                    위로!
+                    <span class="icon">
+                        <i class="fas fa-thumbs-up"></i>
+                    </span>
+                </a>
+                <a href="#" onclick="delete_star('김다미')" class="card-footer-item has-text-danger">
+                    삭제
+                    <span class="icon">
+                        <i class="fas fa-ban"></i>
+                    </span>
+                </a>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>

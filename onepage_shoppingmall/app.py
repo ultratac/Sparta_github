@@ -31,7 +31,7 @@ def saving():
 
 @app.route('/cart', methods=['GET'])
 def listing():
-    result = list(db.orders.find({},{'_id':0}))
+    result = list(db.orders.find({},{'_id':0}).sort('like',-1))
     return jsonify({'result':'success', 'order_list':result})
 
 
