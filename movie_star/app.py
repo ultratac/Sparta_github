@@ -36,13 +36,9 @@ def add_like():
 
 @app.route('/api/delete', methods=['POST'])
 def delete_star():
-    # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
-    # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
-    # 3. 성공하면 success 메시지를 반환합니다.
-    name_receive = request.form['name_send'] ##받은배우이름을 name receive로 정의
-    moviestar = db.mystar.find_one({'name':name_receive}) ##name=name receive와 동일한 db를 하나 찾아 star로 정의
+    name_receive = request.form['name_send'] 
+    moviestar = db.mystar.find_one({'name':name_receive}) 
     deletMoviestar = db.mystar.delete_one({'name':name_receive})
-     
     
     return jsonify({'result': 'success'})
 
